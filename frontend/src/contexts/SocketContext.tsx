@@ -44,7 +44,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const s = io("http://localhost:3001", {
+    const s = io("https://rtc-ai.onrender.com/", {
       autoConnect: true,
       reconnection: true,
     });
