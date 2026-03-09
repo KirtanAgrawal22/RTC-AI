@@ -87,7 +87,7 @@ function AppContent() {
             onCreateRoom={handleCreateRoom}
             onJoinRoom={handleJoinRoom}
             username={username}
-            roomId={roomId}
+            roomId={roomId || ""}
           />
         </div>
         <div className="w-full md:w-1/2 p-4">
