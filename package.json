@@ -1,0 +1,15 @@
+{
+  "name": "code-editor-project",
+  "version": "1.0.0",
+  "description": "Real-time collaborative code editor and whiteboard",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "private": true
+}
