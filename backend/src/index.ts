@@ -280,7 +280,9 @@ socket.on("request-flowchart-state", ({ roomId }) => {
 });
 });
 
-
+app.get("/", (req, res) => {
+  res.send("RTC AI Backend Running 🚀");
+});
 
 // ---------------- SERVER START ----------------
 server.listen(PORT, () => {
