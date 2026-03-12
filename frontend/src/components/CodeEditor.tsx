@@ -607,11 +607,11 @@ export const CodeEditor = ({
               <span className="text-sm font-medium">Output</span>
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-400">Input:</span>
-                <input
+                <textarea
                   value={stdin}
                   onChange={(e) => setStdin(e.target.value)}
-                  placeholder="stdin"
-                  className="px-2 py-1 bg-gray-600 text-white rounded text-xs w-32"
+                  placeholder={"stdin (each input on new line)\nExample:\n5\n7"}
+                  className="px-2 py-1 bg-gray-600 text-white rounded text-xs w-40 h-12 resize-none"
                 />
               </div>
             </div>
@@ -627,26 +627,6 @@ export const CodeEditor = ({
                 </div>
               )}
             </div>
-          </div>
-        </div>
-
-        <div className="w-64 bg-gray-750 border-l border-gray-600 p-3">
-          <UserList users={users} />
-          
-          <div className="mt-4 p-3 bg-gray-700 rounded-md">
-            <h3 className="text-sm font-medium text-gray-300 mb-2">Room Information</h3>
-            <div className="text-xs text-gray-400 space-y-1">
-              <p>Room ID: <span className="text-blue-400">{roomId || 'Not connected'}</span></p>
-              <p>Users online: <span className="text-green-400">{users.length}</span></p>
-            </div>
-            <button 
-              onClick={copyRoomLink}
-              disabled={!roomId}
-              className="w-full mt-3 bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 text-white py-1 text-xs rounded-md transition-colors flex items-center justify-center gap-1"
-            >
-              {copied ? <Check size={12} /> : <Copy size={12} />}
-              {copied ? 'Copied!' : 'Copy Room Link'}
-            </button>
           </div>
         </div>
       </div>

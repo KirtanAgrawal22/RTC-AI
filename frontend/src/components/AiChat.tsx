@@ -1,7 +1,9 @@
 'use client';
 
 import { useState } from "react";
-
+import ReactMarkdown from "react-markdown";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
 export default function AiChat({ getCode }: { getCode: () => string }) {
 
   const [open,setOpen] = useState(false);
@@ -57,10 +59,40 @@ export default function AiChat({ getCode }: { getCode: () => string }) {
       <div className="flex-1 overflow-auto p-3 text-sm text-white space-y-3">
 
         {messages.map((m,i)=>(
-          <div key={i} className={m.role==="user"?"text-blue-400":"text-green-400"}>
-            {m.text}
-          </div>
-        ))}
+  <div key={i} className={m.role==="user"?"text-blue-400":"text-green-400"}>
+
+    {m.role === "ai" ? (
+
+      <ReactMarkdown
+        components={{
+          code({ inline, className, children, ...props }: any) {
+
+            const match = /language-(\w+)/.exec(className || "");
+
+            return !inline && match ? (
+              <SyntaxHighlighter
+                style={vscDarkPlus}
+                language={match[1]}
+                PreTag="div"
+                {...props}
+              >
+                {String(children).replace(/\n$/, "")}
+              </SyntaxHighlighter>
+            ) : (
+              <code className="bg-zinc-800 px-1 rounded">{children}</code>
+            );
+          },
+        }}
+      >
+        {m.text}
+      </ReactMarkdown>
+
+    ) : (
+      m.text
+    )}
+
+  </div>
+))}
 
         {loading && <div className="text-zinc-500">AI thinking...</div>}
 

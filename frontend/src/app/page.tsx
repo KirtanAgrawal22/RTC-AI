@@ -8,7 +8,6 @@ import { isShareUrl } from "@/lib/shareUtils";
 import { useSocket } from "@/contexts/SocketContext";
 import RoomChat from "@/components/RoomChat";
 import UserList from "@/components/UserList";
-import { ShareInfo } from "@/components/ShareInfo";
 import VideoCall from '@/components/VideoCall';
 
 export default function Home() {
@@ -86,6 +85,16 @@ export default function Home() {
         {isSplitView ? "Single View" : "Split View"}
       </button>
 
+      {/* Code Visualizer Button */}
+  <button
+    onClick={() =>
+      window.open("https://code-visualizer-gzjp.onrender.com/", "_blank")
+    }
+    className="px-4 py-2 rounded bg-purple-600 hover:bg-purple-700"
+  >
+    📊 Visualizer
+  </button>
+
       {/* Editor / Whiteboard Toggle */}
       <div className="flex bg-gray-700 rounded">
         <button
@@ -146,13 +155,39 @@ export default function Home() {
             {!isChatOpen ? (
               <>
                 <UserList users={users} />
-                <ShareInfo />
-                <button
-                  onClick={() => setIsChatOpen(true)}
-                  className="w-full mt-3 bg-blue-600 rounded py-2"
-                >
-                  💬 Open Chatroom
-                </button>
+
+<div className="mt-3 p-3 bg-gray-700 rounded-md">
+  <h3 className="text-sm font-medium text-gray-300 mb-2">
+    Room Information
+  </h3>
+
+  <div className="text-xs text-gray-400 space-y-1">
+    <p>
+      Room ID: <span className="text-blue-400">{roomId}</span>
+    </p>
+
+    <p>
+      Users online: <span className="text-green-400">{users.length}</span>
+    </p>
+  </div>
+
+  <button
+    onClick={() => {
+      const link = `${window.location.origin}?room=${roomId}`;
+      navigator.clipboard.writeText(link);
+    }}
+    className="w-full mt-3 bg-blue-600 hover:bg-blue-700 text-white py-1 text-xs rounded-md"
+  >
+    Copy Room Link
+  </button>
+</div>
+
+<button
+  onClick={() => setIsChatOpen(true)}
+  className="w-full mt-3 bg-blue-600 rounded py-2"
+>
+  💬 Open Chatroom
+</button>
               </>
             ) : (
               <>
